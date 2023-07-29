@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Tenant(models.Model):
     full_name = models.CharField(max_length=300)
@@ -31,6 +32,12 @@ class Flat(models.Model):
     property = models.ForeignKey(Property, on_delete=models.DO_NOTHING, related_name='properties')
     flat_number = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args, **kwargs):
+        if self.flat_number > self.property.flat_available:
+            raise ValidationError('The flat number is greater than the available flats for this property.')
+
+        super(Flat, self).save(*args, **kwargs)
     
     def __str__(self) -> str:
         return f'{self.tenant} is occuping flat number {self.flat_number} at {self.property}'
