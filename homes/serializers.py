@@ -26,8 +26,26 @@ class AddFlatSerializer(serializers.ModelSerializer):
         model = Flat
         fields = ['id', 'tenant', 'property', 'flat_number']
         
+class SimpleTenantSerialier(serializers.ModelSerializer):
+    class Meta:
+        model = Tenant
+        fields = ['id', 'full_name', 'email', 
+                  'phone_number', 'rent_amount']
+        
+class SimpleFlatSerializer(serializers.ModelSerializer):
+    tenant = SimpleTenantSerialier()
+    class Meta:
+        model = Flat
+        fields = ['id', 'tenant', 'property', 'flat_number']
+        
         
 class LeaseSerializer(serializers.ModelSerializer):
+    flat = SimpleFlatSerializer(read_only=True)
+    class Meta:
+        model = Lease
+        fields = ['id', 'flat', 'lease_agreement']
+        
+class AddLeaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lease
         fields = ['id', 'flat', 'lease_agreement']

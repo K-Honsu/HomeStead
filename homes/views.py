@@ -19,3 +19,11 @@ class FlatViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return AddFlatSerializer
         return FlatSerializer
+    
+class LeaseViewSet(ModelViewSet):
+    queryset = Lease.objects.all()
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AddLeaseSerializer
+        return LeaseSerializer
