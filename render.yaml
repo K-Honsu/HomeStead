@@ -1,0 +1,11 @@
+name: biometric-api
+env:
+  - key: SECRET_KEY
+    value: config('SECRET_KEY')
+deploy:
+  - type: web
+    name: HomeStead-API
+    command: gunicorn HomeStead.wsgi:application --bind 0.0.0.0:$PORT
+
+    routes:
+      - path: /
