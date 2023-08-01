@@ -88,7 +88,6 @@ DATABASES = {
         'USER':config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
         'HOST':config('DB_HOST'),
-        'PORT': config('DB_PORT'),
     }
 }
 database_url = os.environ.get('DATABASE_URL')
