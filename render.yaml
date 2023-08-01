@@ -1,4 +1,4 @@
-name: biometric-api
+name: HomeStead Api
 env:
   - key: SECRET_KEY
     value: config('SECRET_KEY')
